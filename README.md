@@ -1,5 +1,5 @@
 # core-data-coding
-TLDR: Personal library containing snippets/classes for encoding/decoding/various data transformations. Eg. [Manchester code](https://en.wikipedia.org/wiki/Manchester_code).
+TLDR: Library containing snippets/classes for encoding/decoding/various data transformations. Eg. [Manchester code](https://en.wikipedia.org/wiki/Manchester_code).
 
 ## The context
 Data transformation is required in many areas, encryption, RF transmission, etc.
