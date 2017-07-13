@@ -11,7 +11,7 @@ Having code for specific types of encoding/decoding is sometimes needed for cert
 A library with a collection of encoding/decoding classes conforming to a simple templated base class.
 
 ## The details
-The templated base classes takes these template parameters:
+The templated base class takes these template parameters:
 ```c++
 template<typename ARRAY_INDEX_TYPE, typename INPUT_PRIMITIVE_TYPE, typename OUTPUT_PRIMITIVE_TYPE>
 ```
