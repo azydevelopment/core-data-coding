@@ -31,7 +31,7 @@ I really like [Differential Manchester](https://en.wikipedia.org/wiki/Differenti
 * Is [self clocking](https://en.wikipedia.org/wiki/Self-clocking_signal) (meaning it doesn't need an independent data and clock line)
 * Has a DC bias of zero which is important for communications systems (also see [line codes](https://en.wikipedia.org/wiki/Line_code))
 
-One of the properties about Differential Manchester that I liked over regular Manchester is that the first edge is always a non-data carrying edge. The gist of the scheme is that every period boundary must have an edge and between periods, a data bit can be encoded as either the existence or non-existence of an edge. Here's an example:
+One of the properties about Differential Manchester that I liked over regular Manchester is that the first edge is always a non-data carrying edge. The gist of the scheme is that every period boundary must have an edge and in the middle of each period, a data bit can be encoded as either the existence or non-existence of an edge. Here's an example:
 ```
 Data            :    1   0   1   1   0   1   0   1
 Line signal     :  |_|¯|___|¯|_|¯|_|¯¯¯|_|¯|___|¯|_|
