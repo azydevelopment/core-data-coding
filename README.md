@@ -5,13 +5,13 @@ TLDR: Library containing snippets/classes for encoding/decoding/various data tra
 Data transformation is required in many areas, encryption, RF transmission, etc.
 
 ## The problem
-Having code for specific types of encoding/decoding is sometimes needed for certain types of projects like those that use RF transmission where some coding schemes have properties suited for the expected transmission medium. An example being a low frequency RF data transmission (125khz) over the air that requires a self-clocking data stream. A single frequency means you can't send a clock and a data line at the same time; your clock and data have to be encoded in the same stream. The fact that the transmission medium is very 'analog' (waves flying through the air), the scheme also has to be robust against environmental factors (timing inaccuracies, etc). In one implementation, I used [Differential Manchester](https://en.wikipedia.org/wiki/Differential_Manchester_encoding) code. More details in the example section below.
+Having code for specific types of encoding/decoding is sometimes needed for certain types of projects like those that use RF transmission where some coding schemes have properties suited for the expected transmission medium. An example being a low frequency RF data transmission (125khz) over the air that requires a [self clocking](https://en.wikipedia.org/wiki/Self-clocking_signal) data stream. A single frequency means you can't send a clock and a data line at the same time; your clock and data have to be encoded in the same stream. The fact that the transmission medium is very 'analog' (waves flying through the air), the scheme also has to be robust against environmental factors (timing inaccuracies, etc). In one implementation, I used [Differential Manchester](https://en.wikipedia.org/wiki/Differential_Manchester_encoding) code. More details in the example section below.
 
 ## The solution
 A library with a collection of encoding/decoding classes conforming to a simple templated base class.
 
 ## The details
-The templated base classes takes these template parameters:
+The templated base class takes these template parameters:
 ```c++
 template<typename ARRAY_INDEX_TYPE, typename INPUT_PRIMITIVE_TYPE, typename OUTPUT_PRIMITIVE_TYPE>
 ```
@@ -31,7 +31,7 @@ I really like [Differential Manchester](https://en.wikipedia.org/wiki/Differenti
 * Is [self clocking](https://en.wikipedia.org/wiki/Self-clocking_signal) (meaning it doesn't need an independent data and clock line)
 * Has a DC bias of zero which is important for communications systems (also see [line codes](https://en.wikipedia.org/wiki/Line_code))
 
-One of the properties about Differential Manchester that I liked over regular Manchester is that the first edge is always a non-data carrying edge. The gist of the scheme is that every period boundary must have an edge and between periods, a data bit can be encoded as either the existence or non-existence of an edge. Here's an example:
+One of the properties about Differential Manchester that I liked over regular Manchester is that the first edge is always a non-data carrying edge. The gist of the scheme is that every period boundary must have an edge and in the middle of each period, a data bit can be encoded as either the existence or non-existence of an edge. Here's an example:
 ```
 Data            :    1   0   1   1   0   1   0   1
 Line signal     :  |_|¯|___|¯|_|¯|_|¯¯¯|_|¯|___|¯|_|
@@ -99,6 +99,7 @@ void CManchesterDifferentialDecoder<ARRAY_INDEX_TYPE, DATA_PRIMITIVE_TYPE>::Code
 			uint8_t outputBit = maxBitIndex - ((i % 2) * numDataPrimitiveBits + j) / 2;
 
 			// TODO IMPLEMENT: Ability to change polarity of the decoder
+			// _BS sets a bit in a value. First param is the value, second param the bit index, third param the bit value
 			_BS(
 				output[outputPrimitiveIndex],
 				outputBit,
